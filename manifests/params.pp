@@ -9,18 +9,36 @@ class supervisord::params {
       $unix_socket_group = 'nobody'
       $install_init      = true
       $executable_path   = '/usr/bin'
+      $config_include    = '/etc/supervisor.d'
+      $config_file       = '/etc/supervisord.conf'
+      $run_path          = '/var/run'
     }
     'Debian': {
       $init_defaults     = '/etc/default/supervisor'
       $unix_socket_group = 'nogroup'
       $install_init      = true
       $executable_path   = '/usr/local/bin'
+      $config_include    = '/etc/supervisor.d'
+      $config_file       = '/etc/supervisord.conf'
+      $run_path          = '/var/run'
+    }
+    'FreeBSD':  {
+      $init_defaults     = false
+      $unix_socket_group = 'nogroup'
+      $install_init      = false
+      $executable_path   = '/usr/local/bin'
+      $config_include    = '/usr/local/etc/supervisor.d'
+      $config_file       = '/usr/local/etc/supervisord.conf'
+      $run_path          = '/var/run/supervisor'
     }
     default:  {
       $init_defaults     = false
       $unix_socket_group = 'nogroup'
       $install_init      = false
       $executable_path   = '/usr/local/bin'
+      $config_include    = '/etc/supervisor.d'
+      $config_file       = '/etc/supervisord.conf'
+      $run_path          = '/var/run'
     }
   }
 
@@ -36,7 +54,6 @@ class supervisord::params {
   $scl_enabled          = false
   $scl_script           = '/opt/rh/python27/enable'
 
-  $run_path             = '/var/run'
   $pid_file             = 'supervisord.pid'
   $log_path             = '/var/log/supervisor'
   $log_file             = 'supervisord.log'
@@ -47,8 +64,6 @@ class supervisord::params {
   $minfds               = '1024'
   $minprocs             = '200'
   $umask                = '022'
-  $config_include       = '/etc/supervisor.d'
-  $config_file          = '/etc/supervisord.conf'
   $setuptools_url       = 'https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py'
 
   $unix_socket          = true
